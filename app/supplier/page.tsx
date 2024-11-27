@@ -51,14 +51,7 @@ export default function SupplierPage() {
 
   return (
     <Flex direction="column" p={4}>
-      <Box
-        bg="white"
-        borderRadius="lg"
-        shadow="lg"
-        p={4}
-        overflowY="auto"
-        maxHeight="500px"
-      >
+      <Box overflowY="auto" maxHeight="500px">
         <Box p="5px" paddingBottom={"15px"}>
           <Text fontSize="2xl" fontWeight="bold" color="green.500">
             Fornecedores

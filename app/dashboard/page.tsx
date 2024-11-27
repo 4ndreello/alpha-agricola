@@ -85,9 +85,7 @@ export default function Dashboard() {
               key={module.key}
               variant="ghost"
               size="lg"
-              colorScheme={activeModule === module.key ? "green" : "gray"}
-              bg={activeModule === module.key ? "green.50" : "transparent"}
-              shadow={activeModule === module.key ? "sm" : "none"}
+              color={activeModule === module.key ? "green.500" : "gray.500"}
               _hover={{ bg: "green.100" }}
               onClick={() => handleModuleClick(module.key)}
             >
