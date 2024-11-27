@@ -60,7 +60,7 @@ export default function SupplierPage() {
             Manunteção de fornecedores.
           </Text>
 
-          <Button colorScheme="green" size="sm" mt={4}>
+          <Button colorPalette="green" size="sm" mt={4}>
             Processar
           </Button>
         </Box>
@@ -131,7 +131,7 @@ export default function SupplierPage() {
               ))}
             </tbody>
           </table>
-          <Button colorScheme="green" size="sm" mt={4}>
+          <Button colorPalette="green" size="sm" mt={4}>
             Adicionar Fornecedor
           </Button>
         </Box>

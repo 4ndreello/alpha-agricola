@@ -27,13 +27,20 @@ export default function Dashboard() {
     switch (activeModule) {
       case "supplier":
         return (
-          <Box bg="white" shadow="lg" borderRadius="lg" p={6} mb={6}>
+          <Box
+            bg="white"
+            borderWidth={"1px"}
+            borderColor={"gray.300"}
+            borderRadius="lg"
+            p={6}
+            mb={6}
+          >
             <Supplier />
           </Box>
         );
       case "materials":
         return (
-          <Box bg="white" shadow="lg" borderRadius="lg" p={6} mb={6}>
+          <Box bg="white" borderRadius="lg" p={6} mb={6}>
             <Text fontSize="2xl" fontWeight="bold" color="green.500">
               Materiais
             </Text>
@@ -44,7 +51,7 @@ export default function Dashboard() {
         );
       case "storage":
         return (
-          <Box bg="white" shadow="lg" borderRadius="lg" p={6} mb={6}>
+          <Box bg="white" borderRadius="lg" p={6} mb={6}>
             <Text fontSize="2xl" fontWeight="bold" color="green.500">
               Estoque
             </Text>
@@ -70,7 +77,6 @@ export default function Dashboard() {
         w="20%"
         bg="white"
         p={6}
-        shadow="lg"
         borderRightWidth={1}
         borderColor="gray.200"
         display="flex"
@@ -85,6 +91,7 @@ export default function Dashboard() {
               key={module.key}
               variant="ghost"
               size="lg"
+              bgColor={activeModule === module.key ? "green.100" : "gray.200"}
               color={activeModule === module.key ? "green.500" : "gray.500"}
               _hover={{ bg: "green.100" }}
               onClick={() => handleModuleClick(module.key)}
@@ -95,10 +102,9 @@ export default function Dashboard() {
         </VStack>
         <Button
           mt={4}
-          colorScheme="red"
+          colorPalette="green"
           size="lg"
           onClick={handleLogout}
-          shadow="sm"
           _hover={{ bg: "red.600" }}
         >
           Sair
