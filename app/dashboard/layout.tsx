@@ -5,7 +5,7 @@ import { useRouter } from "next/navigation";
 import { FaUserFriends } from "react-icons/fa";
 import { FaBoxOpen } from "react-icons/fa6";
 import { LuBird } from "react-icons/lu";
-import { ReactNode, useEffect } from "react";
+import { ReactNode } from "react";
 
 const modules = [
   { name: "Fornecedores", key: "supplier", icon: FaUserFriends },
