@@ -1,16 +1,6 @@
 "use client";
 
-import {
-  Box,
-  Button,
-  For,
-  Input,
-  Stack,
-  Text,
-  Textarea,
-  VStack,
-  createListCollection,
-} from "@chakra-ui/react";
+import { Box, Button, Input, Text, Textarea, VStack } from "@chakra-ui/react";
 
 const BirdsForm = () => {
   return (
@@ -49,19 +39,3 @@ const BirdsForm = () => {
 };
 
 export default BirdsForm;
-
-const frameworks = createListCollection({
-  items: [
-    { label: "Ativo", value: "active" },
-    { label: "Inativo", value: "inactive" },
-  ],
-});
-
-import {
-  SelectContent,
-  SelectItem,
-  SelectLabel,
-  SelectRoot,
-  SelectTrigger,
-  SelectValueText,
-} from "../../../../components/ui/select";

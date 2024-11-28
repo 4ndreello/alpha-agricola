@@ -1,11 +1,18 @@
 "use client";
 
 import {
+  SelectContent,
+  SelectItem,
+  SelectLabel,
+  SelectRoot,
+  SelectTrigger,
+  SelectValueText,
+} from "../../../../components/ui/select";
+
+import {
   Box,
   Button,
-  For,
   Input,
-  Stack,
   Text,
   Textarea,
   VStack,
@@ -71,12 +78,3 @@ const frameworks = createListCollection({
     { label: "Inativo", value: "inactive" },
   ],
 });
-
-import {
-  SelectContent,
-  SelectItem,
-  SelectLabel,
-  SelectRoot,
-  SelectTrigger,
-  SelectValueText,
-} from "../../../../components/ui/select";
