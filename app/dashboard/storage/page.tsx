@@ -1,6 +1,7 @@
 "use client";
 
 import { Box, Button, Flex, HStack, IconButton, Text } from "@chakra-ui/react";
+import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { FaPenToSquare, FaTrash } from "react-icons/fa6";
 
@@ -13,6 +14,7 @@ type RowData = {
 };
 
 export default function SupplierPage() {
+  const router = useRouter();
   const [rowData] = useState<RowData[]>([
     {
       id: "1",
@@ -45,6 +47,10 @@ export default function SupplierPage() {
     { headerName: "Saldo", field: "balance" },
     { headerName: "Operações", field: "operations" },
   ];
+
+  const handleLaunch = () => {
+    router.push("/dashboard/storage/launch");
+  };
 
   const handleEdit = (rowIndex: number) => {
     alert(`Editar fornecedor na linha ${rowIndex}`);
@@ -136,7 +142,12 @@ export default function SupplierPage() {
               ))}
             </tbody>
           </table>
-          <Button colorPalette="green" size="sm" mt={4}>
+          <Button
+            colorPalette="green"
+            onClick={() => handleLaunch()}
+            size="sm"
+            mt={4}
+          >
             Lançamento
           </Button>
         </Box>
