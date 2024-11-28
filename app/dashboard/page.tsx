@@ -3,6 +3,10 @@
 import { Box, Button, Flex, Text, VStack } from "@chakra-ui/react";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
+import { FaUserFriends } from "react-icons/fa";
+import { FaBoxOpen } from "react-icons/fa6";
+import { LuBird } from "react-icons/lu";
+import MaterialsPage from "../materials/page";
 import Supplier from "../supplier/page";
 
 export default function Dashboard() {
@@ -10,9 +14,9 @@ export default function Dashboard() {
   const [activeModule, setActiveModule] = useState<string | null>(null);
 
   const modules = [
-    { name: "Fornecedores", key: "supplier" },
-    { name: "Materiais", key: "materials" },
-    { name: "Estoque", key: "storage" },
+    { name: "Fornecedores", key: "supplier", icon: FaUserFriends },
+    { name: "Materiais", key: "materials", icon: LuBird },
+    { name: "Estoque", key: "storage", icon: FaBoxOpen },
   ];
 
   const handleModuleClick = (moduleKey: string) => {
@@ -20,13 +24,24 @@ export default function Dashboard() {
   };
 
   const handleLogout = () => {
-    router.replace("/");
+    confirm("Deseja realmente sair?") && router.replace("/");
+  };
+
+  const getModuleContent = () => {
+    switch (activeModule) {
+      case "supplier":
+        return <Supplier />;
+      case "materials":
+        return <MaterialsPage />;
+      case "storage":
+        return <Supplier />;
+    }
   };
 
   const renderModuleContent = () => {
-    switch (activeModule) {
-      case "supplier":
-        return (
+    return (
+      <>
+        {activeModule ? (
           <Box
             bg="white"
             borderWidth={"1px"}
@@ -35,40 +50,17 @@ export default function Dashboard() {
             p={6}
             mb={6}
           >
-            <Supplier />
+            {getModuleContent()}
           </Box>
-        );
-      case "materials":
-        return (
-          <Box bg="white" borderRadius="lg" p={6} mb={6}>
-            <Text fontSize="2xl" fontWeight="bold" color="green.500">
-              Materiais
-            </Text>
-            <Text fontSize="lg" color="gray.600">
-              Conteúdo do módulo materiais.
-            </Text>
-          </Box>
-        );
-      case "storage":
-        return (
-          <Box bg="white" borderRadius="lg" p={6} mb={6}>
-            <Text fontSize="2xl" fontWeight="bold" color="green.500">
-              Estoque
-            </Text>
-            <Text fontSize="lg" color="gray.600">
-              Conteúdo do módulo estoque.
-            </Text>
-          </Box>
-        );
-      default:
-        return (
+        ) : (
           <Flex justify="center" align="center" h="full">
             <Text fontSize="2xl" color="gray.500" fontWeight="semibold">
               Selecione um módulo para começar.
             </Text>
           </Flex>
-        );
-    }
+        )}
+      </>
+    );
   };
 
   return (
@@ -96,7 +88,7 @@ export default function Dashboard() {
               _hover={{ bg: "green.100" }}
               onClick={() => handleModuleClick(module.key)}
             >
-              {module.name}
+              <module.icon /> {module.name}
             </Button>
           ))}
         </VStack>
