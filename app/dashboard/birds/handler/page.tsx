@@ -12,36 +12,21 @@ import {
   createListCollection,
 } from "@chakra-ui/react";
 
-const SupplierForm = () => {
+const BirdsForm = () => {
   return (
     <Box p={8} mx="auto">
       <VStack gap={6}>
         <Box w="full">
           <Text mb={2} fontWeight="medium">
-            Nome Fantasia
+            Nome
           </Text>
-          <Input placeholder="Digite o nome fantasia" size="lg" w="full" />
+          <Input placeholder="Digite o nome" size="lg" w="full" />
         </Box>
         <Box w="full">
           <Text mb={2} fontWeight="medium">
-            CNPJ
+            Dono
           </Text>
-          <Input placeholder="Digite o CNPJ" size="lg" w="full" />
-        </Box>
-        <Box w="full">
-          <SelectRoot size={"lg"} collection={frameworks}>
-            <SelectLabel>Situação</SelectLabel>
-            <SelectTrigger>
-              <SelectValueText placeholder="Selecione uma situação" />
-            </SelectTrigger>
-            <SelectContent>
-              {frameworks.items.map((movie) => (
-                <SelectItem item={movie} key={movie.value}>
-                  {movie.label}
-                </SelectItem>
-              ))}
-            </SelectContent>
-          </SelectRoot>
+          <Input placeholder="Digite o nome do dono" size="lg" w="full" />
         </Box>
         <Box w="full">
           <Text mb={2} fontWeight="medium">
@@ -63,7 +48,7 @@ const SupplierForm = () => {
   );
 };
 
-export default SupplierForm;
+export default BirdsForm;
 
 const frameworks = createListCollection({
   items: [

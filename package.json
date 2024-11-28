@@ -9,7 +9,6 @@
     "type-check": "tsc"
   },
   "dependencies": {
-    "@chakra-ui/form-control": "^2.2.0",
     "@chakra-ui/react": "^3.2.1",
     "@emotion/react": "^11.13.5",
     "@emotion/styled": "^11.13.5",

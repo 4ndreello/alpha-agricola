@@ -9,7 +9,7 @@ import { LuBird } from "react-icons/lu";
 
 const modules = [
   { name: "Fornecedores", key: "supplier", icon: FaUserFriends },
-  { name: "Materiais", key: "materials", icon: LuBird },
+  { name: "Pássaros", key: "birds", icon: LuBird },
   { name: "Estoque", key: "storage", icon: FaBoxOpen },
 ];
 
@@ -69,6 +69,7 @@ export default function ModulesLayout({ children }: { children: ReactNode }) {
         borderRadius="lg"
         m={6}
         flex={1}
+        overflow="auto"
       >
         {children}
       </Box>

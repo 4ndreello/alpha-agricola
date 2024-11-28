@@ -1,17 +1,19 @@
 "use client";
 
 import { Box, Button, Flex, HStack, IconButton, Text } from "@chakra-ui/react";
+import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { FaPenToSquare, FaTrash } from "react-icons/fa6";
 
-export default function MaterialsPage() {
-  type RowData = {
-    name: string;
-    owner: string;
-    createdAt: string;
-    status: string;
-  };
+type RowData = {
+  name: string;
+  owner: string;
+  createdAt: string;
+  status: string;
+};
 
+export default function BirdsPage() {
+  const router = useRouter();
   const [rowData] = useState<RowData[]>([
     {
       name: "Pet A",
@@ -36,17 +38,21 @@ export default function MaterialsPage() {
   const columns = [
     { headerName: "Nome", field: "name" },
     { headerName: "Dono", field: "owner" },
-    { headerName: "Data de Cadastro", field: "createdAt" },
+    { headerName: "Data de cadastro", field: "createdAt" },
     { headerName: "Situação", field: "status" },
     { headerName: "Operações", field: "operations" },
   ];
 
+  const handleAddBird = () => {
+    router.push("/dashboard/birds/handler");
+  };
+
   const handleEdit = (rowIndex: number) => {
-    alert(`Editar material na linha ${rowIndex}`);
+    alert(`Editar pássaro na linha ${rowIndex}`);
   };
 
   const handleDelete = (rowIndex: number) => {
-    alert(`Excluir material na linha ${rowIndex}`);
+    alert(`Excluir pássaro na linha ${rowIndex}`);
   };
 
   return (
@@ -54,10 +60,10 @@ export default function MaterialsPage() {
       <Box overflowY="auto" maxHeight="500px">
         <Box p="5px" paddingBottom={"15px"}>
           <Text fontSize="2xl" fontWeight="bold" color="green.500">
-            Materiais
+            Pássaros
           </Text>
           <Text fontSize="lg" color="gray.600">
-            Manunteção de materiais.
+            Manunteção de pássaros.
           </Text>
 
           <Button colorPalette="green" size="sm" mt={4}>
@@ -131,8 +137,13 @@ export default function MaterialsPage() {
               ))}
             </tbody>
           </table>
-          <Button colorPalette="green" size="sm" mt={4}>
-            Adicionar Material
+          <Button
+            colorPalette="green"
+            onClick={() => handleAddBird()}
+            size="sm"
+            mt={4}
+          >
+            Adicionar pássaro
           </Button>
         </Box>
       </Box>
