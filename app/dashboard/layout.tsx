@@ -6,10 +6,12 @@ import { ReactNode } from "react";
 import { FaUserFriends } from "react-icons/fa";
 import { FaBoxOpen } from "react-icons/fa6";
 import { LuBird } from "react-icons/lu";
+import { RiAlignItemBottomFill } from "react-icons/ri";
 
 const modules = [
   { name: "Fornecedores", key: "supplier", icon: FaUserFriends },
   { name: "Pássaros", key: "birds", icon: LuBird },
+  { name: "Materiais", key: "materials", icon: RiAlignItemBottomFill },
   { name: "Estoque", key: "storage", icon: FaBoxOpen },
 ];
 
