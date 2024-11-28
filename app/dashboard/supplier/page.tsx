@@ -1,6 +1,7 @@
 "use client";
 
 import { Box, Button, Flex, HStack, IconButton, Text } from "@chakra-ui/react";
+import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { FaPenToSquare, FaTrash } from "react-icons/fa6";
 
@@ -12,6 +13,12 @@ type RowData = {
 };
 
 export default function SupplierPage() {
+  const router = useRouter();
+
+  const handleAddSupplier = () => {
+    router.push("/dashboard/supplier/handler");
+  };
+
   const [rowData] = useState<RowData[]>([
     {
       nomeFantasia: "Fornecedor A",
@@ -131,7 +138,12 @@ export default function SupplierPage() {
               ))}
             </tbody>
           </table>
-          <Button colorPalette="green" size="sm" mt={4}>
+          <Button
+            colorPalette="green"
+            onClick={handleAddSupplier}
+            size="sm"
+            mt={4}
+          >
             Adicionar Fornecedor
           </Button>
         </Box>

@@ -132,7 +132,7 @@ export default function MaterialsPage() {
             </tbody>
           </table>
           <Button colorPalette="green" size="sm" mt={4}>
-            Adicionar Fornecedor
+            Adicionar Material
           </Button>
         </Box>
       </Box>
