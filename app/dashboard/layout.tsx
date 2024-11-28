@@ -2,10 +2,10 @@
 
 import { Box, Button, Flex, Text, VStack } from "@chakra-ui/react";
 import { useRouter } from "next/navigation";
+import { ReactNode } from "react";
 import { FaUserFriends } from "react-icons/fa";
 import { FaBoxOpen } from "react-icons/fa6";
 import { LuBird } from "react-icons/lu";
-import { ReactNode } from "react";
 
 const modules = [
   { name: "Fornecedores", key: "supplier", icon: FaUserFriends },
@@ -44,10 +44,11 @@ export default function ModulesLayout({ children }: { children: ReactNode }) {
               variant="ghost"
               size="lg"
               color="gray.500"
+              bgColor="gray.200"
               _hover={{ bg: "green.100" }}
               onClick={() => handleModuleClick(module.key)}
             >
-              <module.icon /> {module.name}
+              <module.icon color="green" /> {module.name}
             </Button>
           ))}
         </VStack>
