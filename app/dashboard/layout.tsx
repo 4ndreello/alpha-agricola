@@ -12,13 +12,12 @@ import { RiAlignItemBottomFill } from "react-icons/ri";
 import { TbCashRegister } from "react-icons/tb";
 
 const modules = [
-  { name: "Home", key: "/", icon: FaHome },
   { name: "Fornecedores", key: "supplier", icon: FaUserFriends },
-  { name: "Pássaros", key: "birds", icon: LuBird },
-  { name: "Materiais", key: "materials", icon: RiAlignItemBottomFill },
+  { name: "Pássaros", key: "bird", icon: LuBird },
+  { name: "Materiais", key: "material", icon: RiAlignItemBottomFill },
   { name: "Estoque", key: "storage", icon: FaBoxOpen },
-  { name: "Contas a Receber", key: "storage", icon: TbCashRegister },
-  { name: "Pedido de venda", key: "storage", icon: MdOutlineMoney },
+  { name: "Contas a Receber", key: "payday", icon: TbCashRegister },
+  { name: "Pedido de venda", key: "sale", icon: MdOutlineMoney },
 ];
 
 export default function ModulesLayout({ children }: { children: ReactNode }) {
