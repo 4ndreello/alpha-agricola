@@ -20,8 +20,8 @@ export default function LoginPage() {
   };
 
   return (
-    <Center h="100vh" bg="gray.50">
-      <Box bg="white" p={8} rounded="lg" shadow="md" maxW="sm" w="full">
+    <Center h="100vh">
+      <Box p={8} rounded="lg" shadow="md" maxW="sm" w="full">
         <Text fontSize="2xl" fontWeight="bold" textAlign="center" mb={4}>
           Alpha Agropecuaria
         </Text>

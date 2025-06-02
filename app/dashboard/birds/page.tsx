@@ -1,9 +1,9 @@
 "use client";
 
-import { Box, Button, Flex, HStack, IconButton, Text } from "@chakra-ui/react";
+import { Box, Button, Flex, Text } from "@chakra-ui/react";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
-import { FaPenToSquare, FaTrash } from "react-icons/fa6";
+import { StyledTable } from "../../../components/StyledTable";
 
 type RowData = {
   name: string;
@@ -36,23 +36,15 @@ export default function BirdsPage() {
   ]);
 
   const columns = [
-    { headerName: "Nome", field: "name" },
-    { headerName: "Dono", field: "owner" },
-    { headerName: "Data de cadastro", field: "createdAt" },
-    { headerName: "Situação", field: "status" },
-    { headerName: "Operações", field: "operations" },
+    { header: "Nome", field: "name" },
+    { header: "Dono", field: "owner" },
+    { header: "Data de cadastro", field: "createdAt" },
+    { header: "Situação", field: "status" },
+    { header: "Operações", field: "operations" },
   ];
 
   const handleAddBird = () => {
     router.push("/dashboard/birds/handler");
-  };
-
-  const handleEdit = (rowIndex: number) => {
-    alert(`Editar pássaro na linha ${rowIndex}`);
-  };
-
-  const handleDelete = (rowIndex: number) => {
-    alert(`Excluir pássaro na linha ${rowIndex}`);
   };
 
   return (
@@ -72,71 +64,8 @@ export default function BirdsPage() {
         </Box>
 
         <Box overflowX="auto">
-          <table style={{ width: "100%", borderCollapse: "collapse" }}>
-            <thead>
-              <tr>
-                {columns.map((column, index) => (
-                  <th
-                    key={index}
-                    style={{
-                      padding: "12px",
-                      backgroundColor: "#f4f4f4",
-                      borderBottom: "2px solid #ddd",
-                      textAlign: "left",
-                    }}
-                  >
-                    {column.headerName}
-                  </th>
-                ))}
-              </tr>
-            </thead>
-            <tbody>
-              {rowData.map((row, index) => (
-                <tr key={index}>
-                  {columns.slice(0, -1).map((column, colIndex) => (
-                    <td
-                      key={colIndex}
-                      style={{
-                        padding: "8px",
-                        borderBottom: "1px solid #ddd",
-                      }}
-                    >
-                      {row[column.field as keyof RowData]}
-                    </td>
-                  ))}
-                  <td
-                    style={{
-                      padding: "8px",
-                      borderBottom: "1px solid #ddd",
-                      textAlign: "center",
-                    }}
-                  >
-                    <HStack>
-                      <IconButton
-                        bg={"white"}
-                        color={"black"}
-                        size={"xs"}
-                        title="Alterar"
-                        onClick={() => handleEdit(index)}
-                      >
-                        <FaPenToSquare />
-                      </IconButton>
+          <StyledTable rowData={rowData} columns={columns} />
 
-                      <IconButton
-                        bg={"white"}
-                        color={"red"}
-                        size={"xs"}
-                        title="Deletar"
-                        onClick={() => handleDelete(index)}
-                      >
-                        <FaTrash />
-                      </IconButton>
-                    </HStack>
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
           <Button
             colorPalette="green"
             onClick={() => handleAddBird()}
