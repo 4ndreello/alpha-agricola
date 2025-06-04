@@ -1,17 +1,8 @@
 "use client";
 
-import {
-  Box,
-  Button,
-  Flex,
-  HStack,
-  IconButton,
-  Table,
-  Text,
-} from "@chakra-ui/react";
+import { Box, Button, Flex, Text } from "@chakra-ui/react";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
-import { FaPenToSquare, FaTrash } from "react-icons/fa6";
 import { StyledTable } from "../../../components/StyledTable";
 
 type RowData = {

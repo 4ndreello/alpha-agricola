@@ -4,7 +4,7 @@ import { Box, Button, Flex, Text, VStack } from "@chakra-ui/react";
 import { useTheme } from "next-themes";
 import { useRouter } from "next/navigation";
 import { ReactNode, useEffect } from "react";
-import { FaHome, FaUserFriends } from "react-icons/fa";
+import { FaUserFriends } from "react-icons/fa";
 import { FaBoxOpen } from "react-icons/fa6";
 import { LuBird } from "react-icons/lu";
 import { MdOutlineMoney } from "react-icons/md";
