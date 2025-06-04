@@ -1,4 +1,5 @@
-import { Table } from "@chakra-ui/react";
+import { Box, Button, Table } from "@chakra-ui/react";
+import { FaEdit, FaTrash } from "react-icons/fa";
 
 /**
  * Props for StyledTable.
@@ -9,9 +10,10 @@ import { Table } from "@chakra-ui/react";
 type Props = {
   rowData: Record<string, string | number>[];
   columns: { header: string; field: string }[];
+  hasOperations?: boolean;
 };
 
-export function StyledTable({ rowData, columns }: Props) {
+export function StyledTable({ rowData, columns, hasOperations }: Props) {
   return (
     <Table.Root size="sm" striped>
       <Table.Header>
@@ -21,16 +23,24 @@ export function StyledTable({ rowData, columns }: Props) {
               {column.header}
             </Table.ColumnHeader>
           ))}
+          {hasOperations && <Table.ColumnHeader>Operações</Table.ColumnHeader>}
         </Table.Row>
       </Table.Header>
       <Table.Body>
         {rowData.map((item, index) => (
           <Table.Row key={index}>
             {columns.map((column) => (
-              <Table.Cell key={column.field as string}>
-                {item[column.field as string]}
-              </Table.Cell>
+              <Table.Cell key={column.field}>{item[column.field]}</Table.Cell>
             ))}
+
+            {hasOperations && (
+              <Table.Cell>
+                <Box display="flex" gap={2}>
+                  <FaEdit />
+                  <FaTrash color="red" />
+                </Box>
+              </Table.Cell>
+            )}
           </Table.Row>
         ))}
       </Table.Body>

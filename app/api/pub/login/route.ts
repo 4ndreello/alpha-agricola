@@ -11,7 +11,6 @@ const postBodySchema = z.object({
   email: z
     .string({ required_error: "O campo e-mail é obrigatório." })
     .email({ message: "Formato de e-mail inválido." }),
-  name: z.string({ required_error: "O campo nome é obrigatório." }),
   password: z.string({ required_error: "O campo senha é obrigatório." }).min(6),
 });
 
@@ -21,24 +20,20 @@ async function post(request: Request) {
 
   ZodErrorPipe.parse(postBodySchema, body);
 
-  const userWithEmail = await prisma.user.findUnique({
+  const user = await prisma.user.findUnique({
     where: {
       email: body.email,
-    },
-  });
-
-  if (userWithEmail) {
-    throw new BadRequestException("Email já cadastrado.");
-  }
-
-  const user = await prisma.user.create({
-    data: {
-      email: body.email,
-      name: body.name,
       password: createHash("sha256").update(body.password).digest("hex"),
-      type: "user",
+    },
+    select: {
+      id: true,
+      email: true,
     },
   });
+
+  if (!user) {
+    throw new BadRequestException("Email ou senha inválidos.");
+  }
 
   await createSession({
     userId: user.id,

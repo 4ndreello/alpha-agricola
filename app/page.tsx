@@ -3,15 +3,23 @@
 import { Box, Button, Center, Input, Stack, Text } from "@chakra-ui/react";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
+import { postLogin } from "./utils/requests";
 
 export default function LoginPage() {
   const router = useRouter();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
-  const handleLogin = () => {
+  const handleLogin = async () => {
     if (!email || !password) {
       alert("Por favor, preencha todos os campos.");
+      return;
+    }
+
+    const response = await postLogin(email, password);
+
+    if (!response) {
+      alert("Email ou senha inválidos!");
       return;
     }
 

@@ -43,7 +43,7 @@ export default function BirdsPage() {
   ];
 
   const handleAddMaterial = () => {
-    router.push("/dashboard/materials/handler");
+    router.push("/dashboard/material/handler");
   };
 
   return (

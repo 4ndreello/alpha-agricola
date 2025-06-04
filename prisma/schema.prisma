@@ -11,18 +11,20 @@ model User {
   id        String   @id @default(cuid())
   name      String?
   password  String
-  type      String
   email     String   @unique
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 }
 
 model Supplier {
-  id        Int      @id @default(autoincrement())
-  name      String
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-  paydays   Payday[] // Relacionamento de volta para Payday
+  id           Int      @id @default(autoincrement())
+  name         String
+  cnpj         String   @unique @db.VarChar(14)
+  status       String   @default("active")
+  observations String?
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+  paydays      Payday[]
 }
 
 model Material {

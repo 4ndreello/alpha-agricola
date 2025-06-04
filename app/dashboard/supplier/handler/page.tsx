@@ -18,8 +18,16 @@ import {
   VStack,
   createListCollection,
 } from "@chakra-ui/react";
+import { SupplierStatus } from "../../../utils/types";
+import { useRouter } from "next/navigation";
 
 const SupplierForm = () => {
+  const router = useRouter();
+
+  const handleCancel = () => {
+    confirm("Deseja realmente cancelar?") && router.back();
+  };
+
   return (
     <Box p={8} mx="auto">
       <VStack gap={6}>
@@ -36,13 +44,13 @@ const SupplierForm = () => {
           <Input placeholder="Digite o CNPJ" size="lg" w="full" />
         </Box>
         <Box w="full">
-          <SelectRoot size={"lg"} collection={frameworks}>
+          <SelectRoot size={"lg"} collection={statuses}>
             <SelectLabel>Situação</SelectLabel>
             <SelectTrigger>
               <SelectValueText placeholder="Selecione uma situação" />
             </SelectTrigger>
             <SelectContent>
-              {frameworks.items.map((movie) => (
+              {statuses.items.map((movie) => (
                 <SelectItem item={movie} key={movie.value}>
                   {movie.label}
                 </SelectItem>
@@ -62,9 +70,15 @@ const SupplierForm = () => {
             w="full"
           />
         </Box>
-        <Button bgColor="green.500" size="lg" w="full">
-          Salvar
-        </Button>
+
+        <Box w="full" display="flex" gap={2} justifyContent="flex-end">
+          <Button bgColor="gray.500" size="lg" onClick={handleCancel}>
+            Cancelar
+          </Button>
+          <Button bgColor="green.500" size="lg">
+            Salvar
+          </Button>
+        </Box>
       </VStack>
     </Box>
   );
@@ -72,9 +86,9 @@ const SupplierForm = () => {
 
 export default SupplierForm;
 
-const frameworks = createListCollection({
+const statuses = createListCollection({
   items: [
-    { label: "Ativo", value: "active" },
-    { label: "Inativo", value: "inactive" },
+    { label: "Ativo", value: SupplierStatus.ACTIVE },
+    { label: "Inativo", value: SupplierStatus.INACTIVE },
   ],
 });
