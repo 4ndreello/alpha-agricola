@@ -23,7 +23,6 @@ const MaterialsForm = () => {
   const { id } = useParams();
 
   const [, setName] = useState("");
-  // const [, setCnpj] = useState("");
   const [, setStatus] = useState(Status.ACTIVE);
   const [, setObservations] = useState("");
 

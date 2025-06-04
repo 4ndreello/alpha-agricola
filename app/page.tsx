@@ -17,9 +17,7 @@ export default function LoginPage() {
     }
 
     const response = await postLogin(email, password);
-
     if (!response) {
-      alert("Email ou senha inválidos!");
       return;
     }
 

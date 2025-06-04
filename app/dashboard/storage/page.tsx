@@ -1,50 +1,30 @@
 "use client";
 
-import { Box, Button, Flex, Text } from "@chakra-ui/react";
+import { Box, Button, Flex, Skeleton, Text } from "@chakra-ui/react";
 import { useRouter } from "next/navigation";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { StyledTable } from "../../../components/StyledTable";
-
-type RowData = {
-  id: string;
-  description: string;
-  available: number;
-  reserved: number;
-  balance: number;
-};
+import { getStorage } from "../../utils/requests";
+import { GetStorageResponse } from "../../utils/types";
 
 export default function SupplierPage() {
   const router = useRouter();
-  const [rowData] = useState<RowData[]>([
-    {
-      id: "1",
-      description: "Semente de milho",
-      available: 12,
-      reserved: 7,
-      balance: 5,
-    },
-    {
-      id: "2",
-      description: "Semente de girassol",
-      available: 24,
-      reserved: 12,
-      balance: 12,
-    },
-    {
-      id: "3",
-      description: "Ração de bordercolie",
-      available: 36,
-      reserved: 12,
-      balance: 24,
-    },
-  ]);
+  const [rowData, setRowData] = useState<GetStorageResponse[] | null>(null);
+
+  const getData = async () => {
+    const data = await getStorage();
+    setRowData(data);
+  };
+
+  useEffect(() => {
+    getData();
+  }, []);
 
   const columns = [
     { header: "Material", field: "id" },
-    { header: "Descrição", field: "description" },
+    { header: "Descrição", field: "name" },
     { header: "Qtd. Disponível", field: "available" },
     { header: "Qtd. Reservada", field: "reserved" },
-    { header: "Saldo", field: "balance" },
   ];
 
   const handleLaunch = () => {
@@ -64,7 +44,15 @@ export default function SupplierPage() {
         </Box>
 
         <Box overflowX="auto">
-          <StyledTable rowData={rowData} columns={columns} />
+          {rowData ? (
+            <StyledTable rowData={rowData} columns={columns} />
+          ) : (
+            <Box w="full" gap={2} display="flex" flexDirection="column">
+              {Array.from({ length: 4 }).map((_, index) => (
+                <Skeleton key={index} height="15px" />
+              ))}
+            </Box>
+          )}
 
           <Button
             colorPalette="green"

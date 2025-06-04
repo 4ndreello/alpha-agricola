@@ -11,6 +11,19 @@ export enum Status {
   INACTIVE = "inactive",
 }
 
+export type PostStorage = {
+  materialId: string;
+  type: string;
+  quantity: number;
+};
+
+export type GetStorageResponse = {
+  id: number;
+  materialId: string;
+  reserved: number;
+  available: number;
+};
+
 export type GetMaterialResponse = {
   id: number;
   name: string;

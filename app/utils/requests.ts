@@ -1,4 +1,9 @@
-import { GetMaterialResponse, GetSupplierResponse } from "./types";
+import {
+  GetMaterialResponse,
+  GetStorageResponse,
+  GetSupplierResponse,
+  PostStorage,
+} from "./types";
 
 const fetcher = async (url: string, options?: RequestInit) => {
   const response = await fetch(url, options);
@@ -42,6 +47,16 @@ export const postLogin = async (email: string, password: string) => {
   );
 
   return data;
+};
+
+export const postStorage = async (payload: PostStorage) => {
+  const data = await fetcher("/api/storage", generatePostConfig(payload));
+  return data;
+};
+
+export const getStorage = async () => {
+  const data = await fetcher("/api/storage");
+  return data as GetStorageResponse[];
 };
 
 export const getMaterials = async () => {
