@@ -1,0 +1,82 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id        String   @id @default(cuid())
+  name      String?
+  password  String
+  type      String
+  email     String   @unique
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Supplier {
+  id        Int      @id @default(autoincrement())
+  name      String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  paydays   Payday[] // Relacionamento de volta para Payday
+}
+
+model Material {
+  id           Int           @id @default(autoincrement())
+  name         String
+  createdAt    DateTime      @default(now())
+  updatedAt    DateTime      @updatedAt
+  requestItems RequestItem[] // Relacionamento de volta para RequestItem
+}
+
+model PaymentMethod {
+  id        Int      @id @default(autoincrement())
+  name      String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  paydays   Payday[] // Relacionamento de volta para Payday
+}
+
+model Request {
+  id          Int           @id @default(autoincrement())
+  observation String?
+  status      String
+  issue_date  DateTime?
+  createdAt   DateTime      @default(now())
+  updatedAt   DateTime      @updatedAt
+  items       RequestItem[] // Relacionamento um-para-muitos com RequestItem
+}
+
+model RequestItem {
+  id          Int      @id @default(autoincrement())
+  quantity    Float // Number @Required @GreaterThan(0) -> Float. A validação >0 deve ser feita na aplicação.
+  unit        String
+  observation String?
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  materialId Int // Chave estrangeira para Material
+  material   Material @relation(fields: [materialId], references: [id])
+
+  requestId Int // Chave estrangeira para Request
+  request   Request @relation(fields: [requestId], references: [id])
+}
+
+model Payday {
+  id          Int       @id @default(autoincrement())
+  payday      DateTime? // Date @Nullish
+  status      String
+  total_value Float // Number @Required. Considere usar Decimal para valores monetários.
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+
+  paymentMethodId Int // Chave estrangeira para PaymentMethod
+  paymentMethod   PaymentMethod @relation(fields: [paymentMethodId], references: [id])
+
+  supplierId Int // Chave estrangeira para Supplier
+  supplier   Supplier @relation(fields: [supplierId], references: [id])
+}

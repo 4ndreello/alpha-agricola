@@ -9,13 +9,16 @@
     "type-check": "tsc"
   },
   "dependencies": {
+    "@auth/prisma-adapter": "^2.9.1",
     "@chakra-ui/react": "^3.2.1",
     "@emotion/react": "^11.13.5",
     "@emotion/styled": "^11.13.5",
+    "@prisma/client": "^6.8.2",
     "@types/node": "^22.7.4",
     "@types/react": "^18.3.11",
     "@types/react-dom": "^18.3.0",
     "framer-motion": "^11.12.0",
+    "jose": "^6.0.11",
     "lucide-react": "^0.399.0",
     "next": "^14.2.12",
     "next-themes": "^0.4.3",
@@ -23,7 +26,8 @@
     "react-dom": "^18.3.1",
     "react-icons": "^5.3.0",
     "react-table": "^7.8.0",
-    "typescript": "^5.6.2"
+    "typescript": "^5.6.2",
+    "zod": "^3.25.50"
   },
   "repository": {
     "type": "git",
@@ -33,5 +37,9 @@
   "bugs": {
     "url": "https://github.com/chakra-ui/chakra-ui/issues"
   },
-  "license": "MIT"
+  "license": "MIT",
+  "devDependencies": {
+    "@types/jsonwebtoken": "^9.0.9",
+    "prisma": "^6.8.2"
+  }
 }
