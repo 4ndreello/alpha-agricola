@@ -3,6 +3,7 @@ export type GetSupplierResponse = {
   name: string;
   cnpj: string;
   status: SupplierStatus;
+  observations?: string;
 };
 
 export enum SupplierStatus {

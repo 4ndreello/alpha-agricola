@@ -1,14 +1,9 @@
 "use client";
 
-import { Box, EmptyState, Flex, Text, VStack } from "@chakra-ui/react";
-import { useTheme } from "next-themes";
-import { useEffect } from "react";
+import { EmptyState, Flex, VStack } from "@chakra-ui/react";
 import { HiCursorClick } from "react-icons/hi";
 
 export default function SelectModuleScreen() {
-  const { setTheme } = useTheme();
-  useEffect(() => setTheme("light"), []);
-
   return (
     <Flex justify="center" align="center" h="full">
       <EmptyState.Root>

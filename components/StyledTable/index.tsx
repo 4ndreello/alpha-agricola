@@ -1,19 +1,21 @@
-import { Box, Button, Table } from "@chakra-ui/react";
+import { Box, Icon, Table } from "@chakra-ui/react";
 import { FaEdit, FaTrash } from "react-icons/fa";
 
-/**
- * Props for StyledTable.
- *
- * @property {Record<string, string>[]} rowData - Row data for the table.
- * @property {{ header: string; field: string }[]} columns - Table columns.
- */
 type Props = {
   rowData: Record<string, string | number>[];
   columns: { header: string; field: string }[];
   hasOperations?: boolean;
+  handleEdit?: (id: string) => void;
+  handleDelete?: (id: string) => void;
 };
 
-export function StyledTable({ rowData, columns, hasOperations }: Props) {
+export function StyledTable({
+  rowData,
+  columns,
+  hasOperations,
+  handleEdit,
+  handleDelete,
+}: Props) {
   return (
     <Table.Root size="sm" striped>
       <Table.Header>
@@ -36,8 +38,19 @@ export function StyledTable({ rowData, columns, hasOperations }: Props) {
             {hasOperations && (
               <Table.Cell>
                 <Box display="flex" gap={2}>
-                  <FaEdit />
-                  <FaTrash color="red" />
+                  <Icon
+                    as={FaEdit}
+                    transition="all 0.2s ease-in-out"
+                    cursor="pointer"
+                    onClick={() => handleEdit?.(item.id.toString())}
+                  />
+                  <Icon
+                    as={FaTrash}
+                    color="red"
+                    transition="all 0.2s ease-in-out"
+                    cursor="pointer"
+                    onClick={() => handleDelete?.(item.id.toString())}
+                  />
                 </Box>
               </Table.Cell>
             )}

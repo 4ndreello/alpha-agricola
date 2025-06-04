@@ -1,9 +1,10 @@
 "use client";
 
-import { Box, Button, Flex, Text, VStack } from "@chakra-ui/react";
+import { Box, Button, Flex, Icon, Text, VStack } from "@chakra-ui/react";
+import { useTheme } from "next-themes";
 import { useRouter } from "next/navigation";
 import { ReactNode } from "react";
-import { FaHome, FaUserFriends } from "react-icons/fa";
+import { FaHome, FaMoon, FaSun, FaUserFriends } from "react-icons/fa";
 import { FaBoxOpen } from "react-icons/fa6";
 import { MdOutlineMoney } from "react-icons/md";
 import { RiAlignItemBottomFill } from "react-icons/ri";
@@ -23,17 +24,24 @@ export default function ModulesLayout({ children }: { children: ReactNode }) {
     router.push(`/dashboard${moduleKey ? `/${moduleKey}` : ""}`);
   };
 
+  const { theme, setTheme } = useTheme();
+
   const createButton = (module: (typeof modules)[number]) => (
-    <Button
-      key={module.key}
-      size="lg"
-      color="gray.500"
-      bgColor="gray.200"
-      _hover={{ bg: "green.100" }}
+    <Box
+      _hover={{ transform: "scale(1.05)" }}
+      cursor="pointer"
+      display="flex"
+      alignItems="center"
+      gap={2}
+      transition="all 0.2s"
       onClick={() => handleModuleClick(module.key)}
+      key={module.key}
     >
-      <module.icon color="green" /> {module.name}
-    </Button>
+      <Icon boxSize={6} color="gray.500" as={module.icon} />
+      <Text fontSize="sm" color="gray.500">
+        {module.name}
+      </Text>
+    </Box>
   );
 
   const handleLogout = () => {
@@ -49,11 +57,44 @@ export default function ModulesLayout({ children }: { children: ReactNode }) {
         display="flex"
         flexDirection="column"
       >
-        {createButton({
-          name: "",
-          key: "",
-          icon: FaHome,
-        })}
+        <Box
+          display="flex"
+          gap={2}
+          alignItems="center"
+          mb={6}
+          justifyContent="center"
+        >
+          <Icon
+            boxSize={6}
+            color="gray.500"
+            _hover={{ color: "green.500", transform: "scale(1.2)" }}
+            cursor="pointer"
+            transition="all 0.2s"
+            as={FaHome}
+            onClick={() => handleModuleClick("")}
+          />
+          {theme === "dark" ? (
+            <Icon
+              boxSize={6}
+              color="gray.500"
+              _hover={{ color: "green.500", transform: "scale(1.2)" }}
+              cursor="pointer"
+              transition="all 0.2s"
+              as={FaMoon}
+              onClick={() => setTheme("light")}
+            />
+          ) : (
+            <Icon
+              boxSize={6}
+              color="gray.500"
+              _hover={{ color: "green.500", transform: "scale(1.2)" }}
+              cursor="pointer"
+              transition="all 0.2s"
+              as={FaSun}
+              onClick={() => setTheme("dark")}
+            />
+          )}
+        </Box>
         <Text fontSize="lg" fontWeight="bold" mb={6} color="green.500">
           Módulos
         </Text>

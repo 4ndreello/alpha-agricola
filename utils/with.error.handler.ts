@@ -1,4 +1,3 @@
-// utils/withErrorHandler.ts
 import { NextResponse, type NextRequest } from "next/server";
 import { HttpError } from "./http.errors";
 
@@ -33,6 +32,20 @@ export function withErrorHandler(handler: ApiRouteHandler): ApiRouteHandler {
             ...(error.details && { errors: error.details }),
           },
           { status: error.statusCode }
+        );
+      }
+
+      if ("meta" in error) {
+        console.log(
+          `--- PrismaClientKnownRequestError TRATADO: ${error.name} (Status: ${error.meta.code}) ---`
+        );
+        return NextResponse.json(
+          {
+            message: error.message,
+            statusCode: 400,
+            ...(error.meta && { errors: error.meta }),
+          },
+          { status: 400 }
         );
       }
 

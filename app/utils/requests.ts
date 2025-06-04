@@ -2,7 +2,14 @@ import { GetSupplierResponse } from "./types";
 
 const fetcher = async (url: string, options?: RequestInit) => {
   const response = await fetch(url, options);
-  return response.json();
+
+  const responseData = await response.json();
+  if (!response.ok) {
+    alert(responseData.message);
+    return;
+  }
+
+  return responseData;
 };
 
 const generatePostConfig = (body: unknown) => ({
@@ -13,6 +20,21 @@ const generatePostConfig = (body: unknown) => ({
   body: JSON.stringify(body),
 });
 
+export const deleteSupplier = async (id: string) => {
+  const data = await fetcher("/api/supplier/" + id, {
+    method: "DELETE",
+  });
+
+  return data;
+};
+
+export const postSupplier = async (
+  payload: Omit<GetSupplierResponse, "id">
+) => {
+  const data = await fetcher("/api/supplier", generatePostConfig(payload));
+  return data;
+};
+
 export const postLogin = async (email: string, password: string) => {
   const data = await fetcher(
     "/api/pub/login",
@@ -22,7 +44,26 @@ export const postLogin = async (email: string, password: string) => {
   return data;
 };
 
+export const patchSupplier = async (payload: GetSupplierResponse) => {
+  const data = await fetcher("/api/supplier/" + payload.id, {
+    method: "PATCH",
+    body: JSON.stringify({
+      name: payload.name,
+      cnpj: payload.cnpj,
+      status: payload.status,
+      observations: payload.observations,
+    }),
+  });
+
+  return data;
+};
+
 export const getSuppliers = async () => {
   const data = await fetcher("/api/supplier");
   return data as GetSupplierResponse[];
+};
+
+export const getSupplierById = async (id: string) => {
+  const data = await fetcher("/api/supplier?id=" + id);
+  return data as GetSupplierResponse;
 };

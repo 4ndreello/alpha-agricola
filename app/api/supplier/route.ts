@@ -10,17 +10,24 @@ const postBodySchema = z.object({
   cnpj: z.string({ required_error: "O campo cnpj é obrigatório." }),
 });
 
-async function get() {
+const getParamsSchema = z.object({
+  id: z.string().optional(),
+});
+
+async function get(request: Request) {
+  const params = Object.fromEntries(
+    new URL(request.url).searchParams.entries()
+  );
+
+  ZodErrorPipe.parse(getParamsSchema, params);
+
   const users = await prisma.supplier.findMany({
-    select: {
-      id: true,
-      name: true,
-      cnpj: true,
-      status: true,
+    where: {
+      ...(!params.id ? {} : { id: Number(params.id) }),
     },
   });
 
-  return Response.json(users);
+  return Response.json(params.id ? users[0] : users);
 }
 
 async function post(request: Request) {

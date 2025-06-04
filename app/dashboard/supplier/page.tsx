@@ -4,7 +4,7 @@ import { Box, Button, Flex, Skeleton, Text } from "@chakra-ui/react";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { StyledTable } from "../../../components/StyledTable";
-import { getSuppliers } from "../../utils/requests";
+import { deleteSupplier, getSuppliers } from "../../utils/requests";
 import { SupplierStatus } from "../../utils/types";
 
 type RowData = {
@@ -17,15 +17,16 @@ export default function SupplierPage() {
   const router = useRouter();
 
   const handleAddSupplier = () => {
-    router.push("/dashboard/supplier/handler");
+    router.push("/dashboard/supplier/new");
   };
 
   const [rowData, setRowData] = useState<RowData[] | null>(null);
 
-  useEffect(() => {
+  const getData = async () => {
     getSuppliers().then((data) => {
       setRowData(
         data.map((supplier) => ({
+          id: supplier.id,
           nomeFantasia: supplier.name,
           cnpj: supplier.cnpj,
           situacao:
@@ -33,9 +34,14 @@ export default function SupplierPage() {
         }))
       );
     });
+  };
+
+  useEffect(() => {
+    getData();
   }, []);
 
   const columns = [
+    { header: "Código", field: "id" },
     { header: "Nome Fantasia", field: "nomeFantasia" },
     { header: "CNPJ", field: "cnpj" },
     { header: "Situação", field: "situacao" },
@@ -59,6 +65,13 @@ export default function SupplierPage() {
               rowData={rowData}
               columns={columns}
               hasOperations={true}
+              handleEdit={(id) => router.push(`/dashboard/supplier/${id}`)}
+              handleDelete={async (id) => {
+                if (confirm("Deseja realmente deletar?")) {
+                  await deleteSupplier(id);
+                  getData();
+                }
+              }}
             />
           ) : (
             <Box w="full" gap={2} display="flex" flexDirection="column">
