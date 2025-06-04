@@ -45,7 +45,6 @@ export default function SupplierPage() {
     { header: "Qtd. Disponível", field: "available" },
     { header: "Qtd. Reservada", field: "reserved" },
     { header: "Saldo", field: "balance" },
-    { header: "Operações", field: "operations" },
   ];
 
   const handleLaunch = () => {
@@ -62,10 +61,6 @@ export default function SupplierPage() {
           <Text fontSize="lg" color="gray.600">
             Gestão de Estoque
           </Text>
-
-          <Button colorPalette="green" size="sm" mt={4}>
-            Processar
-          </Button>
         </Box>
 
         <Box overflowX="auto">

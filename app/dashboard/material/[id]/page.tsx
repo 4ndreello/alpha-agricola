@@ -12,14 +12,21 @@ import {
   SelectTrigger,
   SelectValueText,
   Text,
-  Textarea,
   VStack,
 } from "@chakra-ui/react";
+import { useParams } from "next/navigation";
 import { useEffect, useState } from "react";
-import { getSuppliers } from "../../../utils/requests";
-import { SupplierStatus } from "../../../utils/types";
+import { getMaterialById, getSuppliers } from "../../../utils/requests";
+import { Status } from "../../../utils/types";
 
 const MaterialsForm = () => {
+  const { id } = useParams();
+
+  const [, setName] = useState("");
+  // const [, setCnpj] = useState("");
+  const [, setStatus] = useState(Status.ACTIVE);
+  const [, setObservations] = useState("");
+
   const [suppliers, setSuppliers] = useState(
     createListCollection<{ value: string; label: string }>({
       items: [],
@@ -37,6 +44,15 @@ const MaterialsForm = () => {
         })
       );
     });
+
+    if (typeof id === "string" && id !== "new") {
+      getMaterialById(id).then((data) => {
+        setName(data.name);
+        // setFornecedor(data.supplierId);
+        setStatus(data.status);
+        setObservations(data.observations || "");
+      });
+    }
   }, []);
 
   return (
@@ -81,21 +97,14 @@ const MaterialsForm = () => {
           </SelectRoot>
         </Box>
 
-        <Box w="full">
-          <Text mb={2} fontWeight="medium">
-            Observações
-          </Text>
-          <Textarea
-            placeholder="Digite as observações"
-            size="lg"
-            resize="none"
-            height={64}
-            w="full"
-          />
+        <Box w="full" display="flex" gap={2} justifyContent="flex-end">
+          <Button bgColor="gray.500" size="lg">
+            Cancelar
+          </Button>
+          <Button bgColor="green.500" size="lg">
+            Salvar
+          </Button>
         </Box>
-        <Button bgColor="green.500" size="lg" w="full">
-          Salvar
-        </Button>
       </VStack>
     </Box>
   );
@@ -105,7 +114,7 @@ export default MaterialsForm;
 
 const statuses = createListCollection({
   items: [
-    { label: "Ativo", value: SupplierStatus.ACTIVE },
-    { label: "Inativo", value: SupplierStatus.INACTIVE },
+    { label: "Ativo", value: Status.ACTIVE },
+    { label: "Inativo", value: Status.INACTIVE },
   ],
 });

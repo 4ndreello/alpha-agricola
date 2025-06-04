@@ -1,4 +1,4 @@
-import { GetSupplierResponse } from "./types";
+import { GetMaterialResponse, GetSupplierResponse } from "./types";
 
 const fetcher = async (url: string, options?: RequestInit) => {
   const response = await fetch(url, options);
@@ -41,6 +41,16 @@ export const postLogin = async (email: string, password: string) => {
     generatePostConfig({ email, password })
   );
 
+  return data;
+};
+
+export const getMaterials = async () => {
+  const data = await fetcher("/api/material");
+  return data as GetMaterialResponse[];
+};
+
+export const getMaterialById = async (id: string) => {
+  const data = await fetcher("/api/material?id=" + id);
   return data;
 };
 

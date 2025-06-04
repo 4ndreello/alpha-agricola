@@ -1,38 +1,47 @@
 "use client";
 
-import { Box, Button, Flex, Skeleton, Text } from "@chakra-ui/react";
+import { Box, Flex, Skeleton, Text } from "@chakra-ui/react";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { StyledTable } from "../../../components/StyledTable";
-import { deleteSupplier, getSuppliers } from "../../utils/requests";
-import { Status } from "../../utils/types";
-
-type RowData = {
-  nomeFantasia: string;
-  cnpj: string;
-  situacao: string;
-};
+import { deleteSupplier } from "../../utils/requests";
 
 export default function SupplierPage() {
   const router = useRouter();
 
-  const handleAddSupplier = () => {
-    router.push("/dashboard/supplier/new");
-  };
-
-  const [rowData, setRowData] = useState<RowData[] | null>(null);
+  const [rowData, setRowData] = useState<any[] | null>(null);
 
   const getData = async () => {
-    getSuppliers().then((data) => {
-      setRowData(
-        data.map((supplier) => ({
-          id: supplier.id,
-          nomeFantasia: supplier.name,
-          cnpj: supplier.cnpj,
-          situacao: supplier.status === Status.ACTIVE ? "Ativo" : "Inativo",
-        }))
-      );
-    });
+    setRowData([
+      {
+        id: "1",
+        data: "15/01/2025",
+        status: "Pendente",
+        dataPagto: "-",
+        valorTotal: "R$ 1.500,00",
+      },
+      {
+        id: "2",
+        data: "20/01/2025",
+        status: "Pago",
+        dataPagto: "20/01/2025",
+        valorTotal: "R$ 2.300,00",
+      },
+      {
+        id: "3",
+        data: "25/01/2025",
+        status: "Cancelado",
+        dataPagto: "-",
+        valorTotal: "R$ 800,00",
+      },
+      {
+        id: "4",
+        data: "02/02/2025",
+        status: "Pendente",
+        dataPagto: "-",
+        valorTotal: "R$ 950,00",
+      },
+    ]);
   };
 
   useEffect(() => {
@@ -40,10 +49,10 @@ export default function SupplierPage() {
   }, []);
 
   const columns = [
-    { header: "Código", field: "id" },
-    { header: "Nome Fantasia", field: "nomeFantasia" },
-    { header: "CNPJ", field: "cnpj" },
-    { header: "Situação", field: "situacao" },
+    { header: "Data", field: "data" },
+    { header: "Status", field: "status" },
+    { header: "Data de Pagto.", field: "dataPagto" },
+    { header: "Valor Total", field: "valorTotal" },
   ];
 
   return (
@@ -51,10 +60,10 @@ export default function SupplierPage() {
       <Box overflowY="auto" maxHeight="500px">
         <Box p="5px" paddingBottom={"15px"}>
           <Text fontSize="2xl" fontWeight="bold" color="green.500">
-            Fornecedores
+            Contas a Receber
           </Text>
           <Text fontSize="lg" color="gray.600">
-            Manunteção de fornecedores.
+            Manunteção de contas a receber.
           </Text>
         </Box>
 
@@ -79,15 +88,6 @@ export default function SupplierPage() {
               ))}
             </Box>
           )}
-
-          <Button
-            colorPalette="green"
-            onClick={handleAddSupplier}
-            size="sm"
-            mt={4}
-          >
-            Adicionar Fornecedor
-          </Button>
         </Box>
       </Box>
     </Flex>

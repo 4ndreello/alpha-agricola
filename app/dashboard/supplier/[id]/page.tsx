@@ -26,7 +26,7 @@ import {
   patchSupplier,
   postSupplier,
 } from "../../../utils/requests";
-import { SupplierStatus } from "../../../utils/types";
+import { Status } from "../../../utils/types";
 
 const SupplierForm = () => {
   const router = useRouter();
@@ -34,7 +34,7 @@ const SupplierForm = () => {
 
   const [name, setName] = useState("");
   const [cnpj, setCnpj] = useState("");
-  const [status, setStatus] = useState(SupplierStatus.ACTIVE);
+  const [status, setStatus] = useState(Status.ACTIVE);
   const [observations, setObservations] = useState("");
 
   useEffect(() => {
@@ -162,7 +162,7 @@ export default SupplierForm;
 
 const statuses = createListCollection({
   items: [
-    { label: "Ativo", value: SupplierStatus.ACTIVE },
-    { label: "Inativo", value: SupplierStatus.INACTIVE },
+    { label: "Ativo", value: Status.ACTIVE },
+    { label: "Inativo", value: Status.INACTIVE },
   ],
 });

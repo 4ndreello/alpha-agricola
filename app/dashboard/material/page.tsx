@@ -1,49 +1,36 @@
 "use client";
 
-import { Box, Button, Flex, Text } from "@chakra-ui/react";
+import { Box, Button, Flex, Skeleton, Text } from "@chakra-ui/react";
 import { useRouter } from "next/navigation";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { StyledTable } from "../../../components/StyledTable";
-
-type RowData = {
-  id: string;
-  description: string;
-  createdAt: string;
-  status: string;
-};
+import { getMaterials } from "../../utils/requests";
+import { GetMaterialResponse, Status } from "../../utils/types";
 
 export default function BirdsPage() {
   const router = useRouter();
-  const [rowData] = useState<RowData[]>([
-    {
-      id: "1",
-      description: "Semente de girassol",
-      createdAt: "15/01/2024",
-      status: "Ativo",
-    },
-    {
-      id: "2",
-      description: "Semente de milho",
-      createdAt: "22/10/2023",
-      status: "Inativo",
-    },
-    {
-      id: "3",
-      description: "Ração de bordercolie",
-      createdAt: "01/05/2022",
-      status: "Ativo",
-    },
-  ]);
+  const [rowData, setRowData] = useState<GetMaterialResponse[] | null>(null);
+
+  useEffect(() => {
+    getMaterials().then((data) => {
+      setRowData(
+        data.map((material) => ({
+          ...material,
+          status: material.status === Status.ACTIVE ? "Ativo" : "Inativo",
+        }))
+      );
+    });
+  }, []);
 
   const columns = [
     { header: "Código", field: "id" },
-    { header: "Descrição", field: "description" },
+    { header: "Nome", field: "name" },
+    { header: "Fornecedor", field: "supplierId" },
     { header: "Situação", field: "status" },
-    { header: "Operações", field: "operations" },
   ];
 
   const handleAddMaterial = () => {
-    router.push("/dashboard/material/handler");
+    router.push("/dashboard/material/new");
   };
 
   return (
@@ -56,14 +43,18 @@ export default function BirdsPage() {
           <Text fontSize="lg" color="gray.600">
             Manunteção de materiais.
           </Text>
-
-          <Button colorPalette="green" size="sm" mt={4}>
-            Processar
-          </Button>
         </Box>
 
         <Box overflowX="auto">
-          <StyledTable rowData={rowData} columns={columns} />
+          {rowData ? (
+            <StyledTable rowData={rowData} columns={columns} hasOperations />
+          ) : (
+            <Box w="full" gap={2} display="flex" flexDirection="column">
+              {Array.from({ length: 4 }).map((_, index) => (
+                <Skeleton key={index} height="15px" />
+              ))}
+            </Box>
+          )}
 
           <Button
             colorPalette="green"
